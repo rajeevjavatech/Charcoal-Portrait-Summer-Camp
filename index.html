@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Charcoal Portrait Summer Camp – Akanksha Singh</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1a1410;
+    --charcoal: #2e2820;
+    --warm-white: #faf7f2;
+    --parchment: #f2ead8;
+    --gold: #c9933a;
+    --gold-light: #e8b45a;
+    --rose: #c0465a;
+    --teal: #3a8a85;
+    --blush: #e8c4b8;
+    --sage: #7a9a7a;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--warm-white);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 1000; opacity: .4;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: var(--charcoal);
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .hero-bg-sketch {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 80% at 70% 50%, rgba(201,147,58,.08) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 60% at 20% 30%, rgba(192,70,90,.06) 0%, transparent 60%);
+  }
+
+  /* Charcoal smudge decorations */
+  .smudge {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+  }
+  .smudge-1 { width:500px; height:400px; background: rgba(201,147,58,.12); top:-100px; right:-100px; }
+  .smudge-2 { width:300px; height:300px; background: rgba(192,70,90,.1); bottom:10%; left:-50px; }
+  .smudge-3 { width:200px; height:200px; background: rgba(58,138,133,.1); top:40%; right:30%; }
+
+  /* Sketch lines decoration */
+  .sketch-lines {
+    position: absolute;
+    top: 0; right: 0;
+    width: 55%;
+    height: 100%;
+    opacity: .06;
+    background: repeating-linear-gradient(
+      -45deg,
+      #fff 0, #fff 1px,
+      transparent 1px, transparent 12px
+    );
+  }
+
+  .hero-content {
+    padding: 80px 60px 80px 80px;
+    position: relative; z-index: 2;
+    animation: fadeUp .9s ease both;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px; font-weight: 500; letter-spacing: .18em;
+    text-transform: uppercase; color: var(--gold-light);
+    margin-bottom: 24px;
+  }
+  .hero-eyebrow::before, .hero-eyebrow::after {
+    content: ''; display: block; width: 28px; height: 1px; background: var(--gold-light); opacity: .6;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(48px, 6vw, 82px);
+    font-weight: 900;
+    line-height: 1;
+    color: var(--warm-white);
+    margin-bottom: 8px;
+  }
+  .hero-title span {
+    display: block;
+    font-style: italic;
+    font-weight: 400;
+    font-size: .72em;
+    color: var(--gold);
+    letter-spacing: .01em;
+  }
+
+  .hero-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(22px, 3vw, 36px);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--blush);
+    margin-bottom: 32px;
+    line-height: 1.3;
+  }
+
+  .instructor-tag {
+    display: flex; align-items: center; gap: 14px;
+    margin-bottom: 44px;
+  }
+  .instructor-tag .line { flex: 1; max-width: 40px; height: 1px; background: rgba(255,255,255,.2); }
+  .instructor-tag p {
+    font-size: 13px; color: rgba(255,255,255,.5); letter-spacing: .06em;
+    font-weight: 300;
+  }
+  .instructor-tag strong {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 600; font-style: italic;
+    color: var(--warm-white);
+  }
+
+  .hero-cta-group { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+
+  .btn-primary {
+    display: inline-block;
+    padding: 16px 40px;
+    background: var(--gold);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px; font-weight: 500; letter-spacing: .1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none; cursor: pointer;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+    transition: all .25s ease;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+  .btn-ghost {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 15px 32px;
+    border: 1px solid rgba(255,255,255,.2);
+    color: rgba(255,255,255,.7);
+    font-size: 13px; letter-spacing: .08em; text-transform: uppercase;
+    text-decoration: none;
+    transition: all .25s ease;
+    cursor: pointer; background: transparent;
+  }
+  .btn-ghost:hover { border-color: rgba(255,255,255,.5); color: #fff; }
+
+  /* Hero right – illustrated panel */
+  .hero-visual {
+    position: relative; height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    animation: fadeIn 1.2s ease .3s both;
+  }
+
+  .portrait-frame {
+    width: 380px; height: 500px;
+    position: relative;
+    border: 1px solid rgba(201,147,58,.25);
+  }
+  .portrait-frame::before {
+    content: '';
+    position: absolute; inset: 10px;
+    border: 1px solid rgba(201,147,58,.12);
+    pointer-events: none;
+  }
+  .portrait-inner {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column;
+    background: linear-gradient(135deg, rgba(201,147,58,.05) 0%, transparent 50%, rgba(192,70,90,.04) 100%);
+    position: relative; overflow: hidden;
+  }
+
+  /* Charcoal strokes SVG illustration */
+  .portrait-svg-bg {
+    position: absolute; inset: 0; opacity: .15;
+  }
+
+  .portrait-quote {
+    position: relative; z-index: 2;
+    padding: 40px;
+    text-align: center;
+  }
+  .portrait-quote blockquote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px; font-weight: 300; font-style: italic;
+    line-height: 1.6; color: var(--warm-white);
+    margin-bottom: 20px;
+  }
+  .portrait-quote cite {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px; letter-spacing: .15em;
+    text-transform: uppercase; color: var(--gold);
+    font-style: normal;
+  }
+
+  /* Floating stat chips */
+  .stat-chip {
+    position: absolute;
+    padding: 12px 20px;
+    background: rgba(26,20,16,.85);
+    border: 1px solid rgba(201,147,58,.3);
+    backdrop-filter: blur(10px);
+    animation: float 4s ease-in-out infinite;
+  }
+  .stat-chip p { font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); margin-bottom: 2px; }
+  .stat-chip strong { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--warm-white); }
+  .stat-chip:nth-child(2) { top: 15%; left: -50px; animation-delay: 0s; }
+  .stat-chip:nth-child(3) { bottom: 20%; right: -60px; animation-delay: 1.5s; }
+  .stat-chip:nth-child(4) { top: 55%; left: -40px; animation-delay: .8s; }
+
+  /* ── SECTION BASE ── */
+  section { padding: 100px 80px; }
+
+  .section-label {
+    display: inline-flex; align-items: center; gap: 12px;
+    font-size: 10px; font-weight: 500; letter-spacing: .2em;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 20px;
+  }
+  .section-label::after { content: ''; display: block; width: 40px; height: 1px; background: var(--gold); opacity: .5; }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 4vw, 54px);
+    font-weight: 700; line-height: 1.1;
+    color: var(--charcoal);
+    margin-bottom: 20px;
+  }
+  .section-title em { font-style: italic; color: var(--rose); }
+
+  .section-body {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px; font-weight: 300; line-height: 1.8;
+    color: #5a4f46; max-width: 580px;
+  }
+
+  /* ── WHAT YOU'LL LEARN ── */
+  .learn-section {
+    background: var(--parchment);
+    position: relative; overflow: hidden;
+  }
+  .learn-section::before {
+    content: 'LEARN';
+    position: absolute; right: -20px; top: 50%; transform: translateY(-50%);
+    font-family: 'Playfair Display', serif;
+    font-size: 220px; font-weight: 900;
+    color: rgba(201,147,58,.06); line-height: 1;
+    pointer-events: none; user-select: none;
+  }
+
+  .learn-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px 80px;
+    align-items: start;
+    margin-top: 60px;
+  }
+
+  .learn-left { }
+  .learn-right { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+  .module-card {
+    background: var(--warm-white);
+    padding: 28px 24px;
+    border-top: 3px solid var(--gold);
+    position: relative;
+    transition: transform .3s ease, box-shadow .3s ease;
+  }
+  .module-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,.1); }
+
+  .module-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 48px; font-weight: 900;
+    color: rgba(201,147,58,.18); line-height: 1;
+    margin-bottom: 8px;
+  }
+  .module-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px; font-weight: 700;
+    color: var(--charcoal); margin-bottom: 8px;
+  }
+  .module-desc {
+    font-size: 13px; color: #7a6e67; line-height: 1.6;
+  }
+
+  /* ── DETAILS STRIP ── */
+  .details-strip {
+    background: var(--charcoal);
+    padding: 70px 80px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+  }
+  .detail-item {
+    padding: 40px 32px;
+    background: rgba(255,255,255,.03);
+    border-right: 1px solid rgba(255,255,255,.06);
+    position: relative;
+    transition: background .3s;
+  }
+  .detail-item:hover { background: rgba(201,147,58,.06); }
+  .detail-item:last-child { border-right: none; }
+
+  .detail-icon {
+    width: 44px; height: 44px;
+    border: 1px solid rgba(201,147,58,.3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; margin-bottom: 20px;
+  }
+  .detail-label {
+    font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 6px;
+  }
+  .detail-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px; font-weight: 700; color: var(--warm-white);
+    margin-bottom: 6px; line-height: 1.2;
+  }
+  .detail-sub { font-size: 12px; color: rgba(255,255,255,.35); }
+
+  /* ── INCLUDES ── */
+  .includes-section {
+    background: var(--warm-white);
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+  }
+
+  .includes-visual {
+    position: relative;
+    height: 500px;
+    background: var(--parchment);
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .includes-visual::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      0deg, transparent 0, transparent 30px,
+      rgba(201,147,58,.06) 30px, rgba(201,147,58,.06) 31px
+    );
+  }
+  .pencil-sketch {
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 40% 40%, rgba(201,147,58,.25), rgba(192,70,90,.1));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 72px;
+    position: relative; z-index: 2;
+    box-shadow: 0 0 80px rgba(201,147,58,.15);
+  }
+
+  .includes-list { margin-top: 40px; display: flex; flex-direction: column; gap: 20px; }
+
+  .include-item {
+    display: flex; gap: 20px; align-items: flex-start;
+    padding: 20px 24px;
+    border: 1px solid rgba(0,0,0,.06);
+    transition: all .3s ease;
+    position: relative; overflow: hidden;
+  }
+  .include-item::before {
+    content: '';
+    position: absolute; left: 0; top: 0; bottom: 0; width: 0;
+    background: var(--gold); opacity: .08;
+    transition: width .3s ease;
+  }
+  .include-item:hover::before { width: 100%; }
+  .include-item:hover { border-color: rgba(201,147,58,.3); }
+
+  .include-icon {
+    width: 38px; height: 38px; flex-shrink: 0;
+    background: rgba(201,147,58,.1);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; color: var(--gold);
+  }
+  .include-text h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px; font-weight: 700; color: var(--charcoal);
+    margin-bottom: 3px;
+  }
+  .include-text p { font-size: 12px; color: #8a7e77; line-height: 1.5; }
+
+  /* ── TESTIMONIAL / QUOTE ── */
+  .quote-section {
+    background: linear-gradient(135deg, var(--charcoal) 0%, #3d3028 100%);
+    text-align: center; padding: 120px 80px;
+    position: relative; overflow: hidden;
+  }
+  .quote-section::before {
+    content: '"';
+    position: absolute; top: -60px; left: 50%; transform: translateX(-50%);
+    font-family: 'Playfair Display', serif;
+    font-size: 400px; font-weight: 900;
+    color: rgba(201,147,58,.06); line-height: 1;
+    pointer-events: none;
+  }
+  .quote-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(28px, 4vw, 52px);
+    font-weight: 300; font-style: italic;
+    line-height: 1.5; color: var(--warm-white);
+    max-width: 860px; margin: 0 auto 32px;
+    position: relative; z-index: 2;
+  }
+  .quote-text em { color: var(--gold); font-style: italic; }
+  .quote-attr {
+    font-size: 11px; letter-spacing: .2em; text-transform: uppercase;
+    color: rgba(255,255,255,.35);
+  }
+
+  /* ── REGISTER CTA ── */
+  .register-section {
+    background: var(--parchment);
+    padding: 100px 80px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+  }
+  .register-left .section-title { font-size: clamp(36px, 5vw, 64px); }
+
+  .register-form-panel {
+    background: var(--warm-white);
+    padding: 48px 44px;
+    border: 1px solid rgba(0,0,0,.08);
+    box-shadow: 0 40px 80px rgba(0,0,0,.06);
+  }
+  .form-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px; font-weight: 700; color: var(--charcoal);
+    margin-bottom: 6px;
+  }
+  .form-sub { font-size: 13px; color: #8a7e77; margin-bottom: 32px; }
+
+  .form-group { margin-bottom: 20px; }
+  .form-group label {
+    display: block; font-size: 10px; font-weight: 500;
+    letter-spacing: .12em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 8px;
+  }
+  .form-group input, .form-group select {
+    width: 100%; padding: 13px 16px;
+    border: 1px solid rgba(0,0,0,.1);
+    background: var(--warm-white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px; color: var(--ink);
+    outline: none; transition: border-color .2s;
+    appearance: none;
+  }
+  .form-group input:focus, .form-group select:focus {
+    border-color: var(--gold);
+  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  .register-btn {
+    width: 100%; padding: 18px;
+    background: var(--charcoal); color: var(--gold);
+    border: none; cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px; font-weight: 500; letter-spacing: .18em;
+    text-transform: uppercase;
+    transition: all .3s ease;
+    margin-top: 8px;
+  }
+  .register-btn:hover { background: var(--gold); color: var(--ink); }
+
+  .seats-badge {
+    display: flex; align-items: center; gap: 8px;
+    margin-top: 16px; justify-content: center;
+  }
+  .seats-dot { width: 8px; height: 8px; background: var(--rose); border-radius: 50%; animation: pulse 2s ease infinite; }
+  .seats-text { font-size: 12px; color: var(--rose); font-weight: 500; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    padding: 60px 80px;
+    display: grid; grid-template-columns: 1fr auto 1fr;
+    align-items: center; gap: 40px;
+  }
+  .footer-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px; font-style: italic; color: var(--gold);
+  }
+  .footer-brand span { display: block; font-size: 11px; font-style: normal; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.3); margin-top: 4px; font-family: 'DM Sans', sans-serif; }
+
+  .footer-contact { text-align: center; }
+  .footer-contact a {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px; font-weight: 700; color: var(--warm-white);
+    text-decoration: none; display: block; margin-bottom: 6px;
+    transition: color .2s;
+  }
+  .footer-contact a:hover { color: var(--gold); }
+  .footer-contact p { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.3); }
+
+  .footer-social { text-align: right; }
+  .footer-social a {
+    display: inline-flex; align-items: center; gap: 8px;
+    color: rgba(255,255,255,.6); text-decoration: none;
+    font-size: 13px; transition: color .2s;
+    margin-bottom: 10px;
+  }
+  .footer-social a:hover { color: var(--gold); }
+  .footer-social p { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.3); margin-bottom: 12px; }
+
+  .footer-tagline {
+    grid-column: 1 / -1; text-align: center;
+    padding-top: 40px; border-top: 1px solid rgba(255,255,255,.06);
+    font-size: 10px; letter-spacing: .3em; text-transform: uppercase;
+    color: rgba(255,255,255,.2);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: .5; transform: scale(1.4); }
+  }
+
+  /* Scroll reveal */
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: .1s; }
+  .reveal-delay-2 { transition-delay: .2s; }
+  .reveal-delay-3 { transition-delay: .3s; }
+  .reveal-delay-4 { transition-delay: .4s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-visual { display: none; }
+    .hero-content { padding: 80px 32px; }
+    section { padding: 70px 32px; }
+    .learn-grid, .includes-section, .register-section { grid-template-columns: 1fr; }
+    .details-strip { grid-template-columns: 1fr 1fr; padding: 40px 32px; }
+    footer { grid-template-columns: 1fr; text-align: center; }
+    .footer-social { text-align: center; }
+    .learn-right { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════ HERO ═══════════════════════════════ -->
+<section class="hero">
+  <div class="hero-bg-sketch"></div>
+  <div class="smudge smudge-1"></div>
+  <div class="smudge smudge-2"></div>
+  <div class="smudge smudge-3"></div>
+  <div class="sketch-lines"></div>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">Online Art Education</p>
+    <h1 class="hero-title">
+      Charcoal
+      <span>Portrait</span>
+      Summer Camp
+    </h1>
+    <p class="hero-subtitle">
+      Master the language of light,<br>shadow, and form.
+    </p>
+    <div class="instructor-tag">
+      <div class="line"></div>
+      <div>
+        <p>Curated by</p>
+        <strong>Akanksha Singh</strong>
+      </div>
+    </div>
+    <div class="hero-cta-group">
+      <a href="#register" class="btn-primary">Enroll Now</a>
+      <a href="#curriculum" class="btn-ghost">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="10,8 16,12 10,16"/></svg>
+        View Curriculum
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="portrait-frame">
+      <div class="stat-chip">
+        <p>Duration</p>
+        <strong>1 Month</strong>
+      </div>
+      <div class="stat-chip">
+        <p>Format</p>
+        <strong>Online</strong>
+      </div>
+      <div class="stat-chip">
+        <p>Frequency</p>
+        <strong>2–3×/wk</strong>
+      </div>
+      <div class="portrait-inner">
+        <!-- Charcoal strokes SVG illustration -->
+        <svg class="portrait-svg-bg" viewBox="0 0 380 500" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <filter id="rough">
+              <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="3" result="noise"/>
+              <feDisplacementMap in="SourceGraphic" in2="noise" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+            </filter>
+          </defs>
+          <!-- Abstract portrait strokes -->
+          <g filter="url(#rough)" stroke="white" fill="none" stroke-width="1.5" opacity="0.8">
+            <ellipse cx="200" cy="160" rx="80" ry="100"/>
+            <path d="M140,180 Q170,200 200,195 Q230,190 250,175"/>
+            <path d="M155,155 Q165,150 175,155"/>
+            <path d="M220,155 Q230,150 240,155"/>
+            <path d="M190,170 L195,185 Q200,190 205,185"/>
+            <path d="M160,210 Q185,225 215,210"/>
+            <path d="M150,100 Q180,60 200,70 Q230,65 255,95"/>
+            <path d="M145,105 Q135,160 140,200 Q145,240 155,260"/>
+            <path d="M255,100 Q265,155 260,195 Q255,235 245,258"/>
+            <line x1="80" y1="320" x2="310" y2="320"/>
+            <line x1="90" y1="330" x2="300" y2="330"/>
+            <line x1="100" y1="340" x2="290" y2="360"/>
+            <line x1="80" y1="350" x2="280" y2="375"/>
+            <line x1="110" y1="365" x2="270" y2="390"/>
+            <path d="M170,265 Q175,300 170,340"/>
+            <path d="M230,265 Q225,300 230,340"/>
+            <!-- Sketch lines background -->
+            <line x1="20" y1="50" x2="60" y2="90" opacity="0.4"/>
+            <line x1="25" y1="60" x2="55" y2="85" opacity="0.3"/>
+            <line x1="310" y1="380" x2="360" y2="430" opacity="0.4"/>
+            <line x1="30" y1="400" x2="60" y2="450" opacity="0.3"/>
+          </g>
+        </svg>
+        <div class="portrait-quote">
+          <blockquote>"Art is not about<br>perfection — it's about<br><em style="color:var(--gold)">expression</em> and<br><em style="color:var(--rose)">experience.</em>"</blockquote>
+          <cite>— Akanksha Singh</cite>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ DETAILS STRIP ═══════════════════════════════ -->
+<div class="details-strip">
+  <div class="detail-item reveal">
+    <div class="detail-icon">📅</div>
+    <p class="detail-label">Duration</p>
+    <p class="detail-value">1 Month</p>
+    <p class="detail-sub">Intensive summer program</p>
+  </div>
+  <div class="detail-item reveal reveal-delay-1">
+    <div class="detail-icon">🖥️</div>
+    <p class="detail-label">Format</p>
+    <p class="detail-value">Online Live</p>
+    <p class="detail-sub">Join from anywhere in the world</p>
+  </div>
+  <div class="detail-item reveal reveal-delay-2">
+    <div class="detail-icon">✏️</div>
+    <p class="detail-label">Classes / Week</p>
+    <p class="detail-value">2 – 3</p>
+    <p class="detail-sub">Flexible scheduling</p>
+  </div>
+  <div class="detail-item reveal reveal-delay-3">
+    <div class="detail-icon">🌿</div>
+    <p class="detail-label">Level</p>
+    <p class="detail-value">Beginner+</p>
+    <p class="detail-sub">No prior experience needed</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ CURRICULUM ═══════════════════════════════ -->
+<section class="learn-section" id="curriculum">
+  <div class="section-label">Curriculum</div>
+  <div class="learn-grid">
+    <div class="learn-left reveal">
+      <h2 class="section-title">What You'll<br><em>Master</em></h2>
+      <p class="section-body">
+        A month-long deep dive into the craft of realistic charcoal portraiture — from holding the charcoal for the first time to rendering lifelike skin texture, depth, and emotion.
+      </p>
+      <div style="margin-top:40px; display:flex; gap:40px; flex-wrap:wrap;">
+        <div>
+          <p style="font-family:'Playfair Display',serif;font-size:42px;font-weight:900;color:var(--charcoal);">4+</p>
+          <p style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)">Core Modules</p>
+        </div>
+        <div>
+          <p style="font-family:'Playfair Display',serif;font-size:42px;font-weight:900;color:var(--charcoal);">8+</p>
+          <p style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)">Live Sessions</p>
+        </div>
+        <div>
+          <p style="font-family:'Playfair Display',serif;font-size:42px;font-weight:900;color:var(--charcoal);">1:1</p>
+          <p style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)">Feedback</p>
+        </div>
+      </div>
+    </div>
+    <div class="learn-right">
+      <div class="module-card reveal reveal-delay-1">
+        <p class="module-num">01</p>
+        <p class="module-title">Foundations of Charcoal</p>
+        <p class="module-desc">Tools, paper types, grip techniques, and understanding charcoal behavior.</p>
+      </div>
+      <div class="module-card reveal reveal-delay-2">
+        <p class="module-num">02</p>
+        <p class="module-title">Proportions & Anatomy</p>
+        <p class="module-desc">Facial proportions, skull structure, and how features relate to each other.</p>
+      </div>
+      <div class="module-card reveal reveal-delay-3">
+        <p class="module-num">03</p>
+        <p class="module-title">Light & Shadow</p>
+        <p class="module-desc">Value scales, form shadows, cast shadows, and the language of light.</p>
+      </div>
+      <div class="module-card reveal reveal-delay-4">
+        <p class="module-num">04</p>
+        <p class="module-title">Texture & Skin</p>
+        <p class="module-desc">Rendering hair, eyes, lips, and skin with depth and realism.</p>
+      </div>
+      <div class="module-card reveal reveal-delay-1" style="grid-column: 1 / -1; border-top-color: var(--rose);">
+        <p class="module-num">05</p>
+        <p class="module-title">Full Portrait Project</p>
+        <p class="module-desc">Bring everything together in a complete, guided portrait with personal feedback from Akanksha.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ INCLUDES ═══════════════════════════════ -->
+<section class="includes-section">
+  <div class="includes-visual reveal">
+    <div class="pencil-sketch">✏️</div>
+    <svg style="position:absolute;inset:0;z-index:1;" viewBox="0 0 400 500" opacity=".12">
+      <g stroke="#8a6a50" fill="none">
+        <line x1="20" y1="80" x2="380" y2="80"/>
+        <line x1="20" y1="110" x2="380" y2="110"/>
+        <line x1="20" y1="140" x2="380" y2="140"/>
+        <line x1="20" y1="170" x2="380" y2="170"/>
+        <line x1="20" y1="200" x2="380" y2="200"/>
+        <line x1="20" y1="230" x2="380" y2="230"/>
+        <line x1="20" y1="260" x2="200" y2="260"/>
+        <line x1="20" y1="290" x2="170" y2="290"/>
+        <line x1="20" y1="320" x2="150" y2="320"/>
+        <path d="M200,240 Q300,260 370,300 Q390,360 370,420 Q340,460 280,470 Q220,475 200,450" stroke-width="2"/>
+      </g>
+    </svg>
+  </div>
+  <div>
+    <div class="section-label reveal">What's Included</div>
+    <h2 class="section-title reveal">Everything You<br><em>Need to Grow</em></h2>
+    <div class="includes-list">
+      <div class="include-item reveal reveal-delay-1">
+        <div class="include-icon">🎨</div>
+        <div class="include-text">
+          <h4>Personal Guidance & Artwork Review</h4>
+          <p>One-on-one feedback sessions where Akanksha reviews your work and offers targeted advice.</p>
+        </div>
+      </div>
+      <div class="include-item reveal reveal-delay-2">
+        <div class="include-icon">💬</div>
+        <div class="include-text">
+          <h4>Appreciation & Feedback Sessions</h4>
+          <p>Group critiques to build critical thinking and learn from other students' journeys.</p>
+        </div>
+      </div>
+      <div class="include-item reveal reveal-delay-3">
+        <div class="include-icon">🏅</div>
+        <div class="include-text">
+          <h4>Participation Certificate</h4>
+          <p>An official certificate of completion issued by Akanksha Singh upon finishing the course.</p>
+        </div>
+      </div>
+      <div class="include-item reveal reveal-delay-4">
+        <div class="include-icon">🎁</div>
+        <div class="include-text">
+          <h4>Special Discount on Future Classes</h4>
+          <p>Exclusive alumni discounts for all upcoming workshops and advanced masterclasses.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ QUOTE ═══════════════════════════════ -->
+<section class="quote-section">
+  <p class="quote-text reveal">
+    "Art is not about perfection — it's about
+    <em>expression</em> and <em>experience.</em>"
+  </p>
+  <p class="quote-attr reveal">— Akanksha Singh, Artist & Educator</p>
+</section>
+
+<!-- ═══════════════════════════════ REGISTER ═══════════════════════════════ -->
+<section class="register-section" id="register">
+  <div class="register-left">
+    <div class="section-label reveal">Limited Seats</div>
+    <h2 class="section-title reveal">
+      Ready to<br>Begin Your<br><em>Journey?</em>
+    </h2>
+    <p class="section-body reveal" style="margin-bottom:32px;">
+      A calm, creative environment where beginners are welcomed and guided step by step through the beautiful art of charcoal portraiture.
+    </p>
+    <div class="seats-badge reveal">
+      <div class="seats-dot"></div>
+      <p class="seats-text">Limited Seats Available — Enroll Today</p>
+    </div>
+  </div>
+  <div class="register-form-panel reveal">
+    <h3 class="form-title">Register Your Seat</h3>
+    <p class="form-sub">Fill in your details — then choose how to send them below.</p>
+    <div class="form-row">
+      <div class="form-group">
+        <label>First Name</label>
+        <input id="f-first" type="text" placeholder="Priya">
+      </div>
+      <div class="form-group">
+        <label>Last Name</label>
+        <input id="f-last" type="text" placeholder="Sharma">
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Email Address</label>
+      <input id="f-email" type="email" placeholder="you@example.com">
+    </div>
+    <div class="form-group">
+      <label>WhatsApp / Phone</label>
+      <input id="f-phone" type="tel" placeholder="+91 98765 43210">
+    </div>
+    <div class="form-group">
+      <label>Experience Level</label>
+      <select id="f-level">
+        <option value="">Select your level</option>
+        <option>Complete Beginner</option>
+        <option>Some Drawing Experience</option>
+        <option>Intermediate Artist</option>
+      </select>
+    </div>
+
+    <!-- Action buttons -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;">
+      <button class="register-btn" style="background:#25D366;color:#fff;font-size:11px;" onclick="sendWhatsApp()">
+        💬 Send via WhatsApp
+      </button>
+      <button class="register-btn" style="background:#2e2820;color:#c9933a;font-size:11px;" onclick="sendEmail()">
+        ✉️ Send via Email
+      </button>
+    </div>
+    <button class="register-btn" style="margin-top:10px;background:#3a8a85;color:#fff;font-size:11px;" onclick="downloadCSV()">
+      ⬇ Download as CSV / Save Locally
+    </button>
+
+    <div id="form-status" style="display:none;margin-top:16px;padding:12px 16px;font-size:13px;border-left:3px solid var(--teal);background:rgba(58,138,133,.08);color:var(--charcoal);"></div>
+
+    <div class="seats-badge" style="margin-top:20px;">
+      <div class="seats-dot"></div>
+      <p class="seats-text">DM on Instagram: @rang_by_akanksha</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ FOOTER ═══════════════════════════════ -->
+<footer>
+  <div class="footer-brand">
+    Akanksha Singh
+    <span>Charcoal Portrait Summer Camp</span>
+  </div>
+  <div class="footer-contact">
+    <a href="tel:8960994985">8960994985</a>
+    <p>Call or WhatsApp to Register</p>
+  </div>
+  <div class="footer-social">
+    <p>Follow on Instagram</p>
+    <a href="https://instagram.com/rang_by_akanksha" target="_blank">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+      @rang_by_akanksha
+    </a>
+  </div>
+  <div class="footer-tagline">Explore &nbsp;·&nbsp; Create &nbsp;·&nbsp; Grow</div>
+</footer>
+
+<script>
+  // ── Scroll reveal ──
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // ── Helpers ──
+  function getFormData() {
+    return {
+      first:  document.getElementById('f-first').value.trim(),
+      last:   document.getElementById('f-last').value.trim(),
+      email:  document.getElementById('f-email').value.trim(),
+      phone:  document.getElementById('f-phone').value.trim(),
+      level:  document.getElementById('f-level').value.trim(),
+    };
+  }
+
+  function validate() {
+    const d = getFormData();
+    if (!d.first || !d.last || !d.email || !d.phone || !d.level) {
+      showStatus('⚠️ Please fill in all fields before submitting.', 'var(--rose)');
+      return null;
+    }
+    return d;
+  }
+
+  function showStatus(msg, color = 'var(--teal)') {
+    const el = document.getElementById('form-status');
+    el.textContent = msg;
+    el.style.display = 'block';
+    el.style.borderLeftColor = color;
+    el.style.background = color === 'var(--rose)' ? 'rgba(192,70,90,.08)' : 'rgba(58,138,133,.08)';
+    el.style.color = 'var(--charcoal)';
+  }
+
+  // ── 1. WhatsApp ──
+  // Change this to Akanksha's WhatsApp number (with country code, no + or spaces)
+  const WHATSAPP_NUMBER = '918960994985';
+
+  function sendWhatsApp() {
+    const d = validate(); if (!d) return;
+    const msg =
+      `🎨 *New Registration – Charcoal Portrait Summer Camp*\n\n` +
+      `👤 *Name:* ${d.first} ${d.last}\n` +
+      `📧 *Email:* ${d.email}\n` +
+      `📱 *Phone:* ${d.phone}\n` +
+      `🖌️ *Level:* ${d.level}\n\n` +
+      `_Submitted via course registration form_`;
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+    window.open(url, '_blank');
+    showStatus('✅ WhatsApp opened! Send the pre-filled message to Akanksha.');
+  }
+
+  // ── 2. Email (mailto) ──
+  // ✏️ Replace with Akanksha's real email address below:
+  const TO_EMAIL = 'akanksha@example.com'; // <-- CHANGE THIS
+
+  function sendEmail() {
+    const d = validate(); if (!d) return;
+    const subject = `New Registration: Charcoal Portrait Summer Camp – ${d.first} ${d.last}`;
+    const body =
+      `New Registration Details\n` +
+      `─────────────────────────\n` +
+      `Name  : ${d.first} ${d.last}\n` +
+      `Email : ${d.email}\n` +
+      `Phone : ${d.phone}\n` +
+      `Level : ${d.level}\n` +
+      `Time  : ${new Date().toLocaleString()}\n` +
+      `─────────────────────────\n` +
+      `Submitted via Charcoal Portrait Summer Camp registration page.`;
+    const url = `mailto:${TO_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = url;
+    showStatus('✅ Email app opened with details pre-filled — just hit Send!');
+  }
+
+  // ── 3. Download CSV ──
+  // In-memory store — accumulates all submissions during the session
+  const sessionEntries = [];
+
+  function downloadCSV() {
+    const d = validate(); if (!d) return;
+
+    // Add new entry with timestamp
+    sessionEntries.push({ ...d, submitted: new Date().toLocaleString() });
+
+    // Build CSV from all session entries
+    const headers = ['First Name','Last Name','Email','Phone','Level','Submitted'];
+    const rows = sessionEntries.map(e =>
+      [e.first, e.last, e.email, e.phone, e.level, e.submitted]
+        .map(v => `"${(v||'').replace(/"/g,'""')}"`)
+        .join(',')
+    );
+    const csv = [headers.join(','), ...rows].join('\n');
+
+    // Trigger download
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `registrations_charcoal_camp_${new Date().toISOString().slice(0,10)}.csv`;
+    a.click();
+    URL.revokeObjectURL(a.href);
+
+    showStatus(`✅ CSV downloaded! ${sessionEntries.length} registration(s) in this file.`);
+  }
+</script>
+
+</body>
+</html>
